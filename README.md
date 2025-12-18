@@ -9,7 +9,7 @@
 body {
     margin: 0;
     font-family: 'Pacifico', cursive;
-    background: #ffb6c1; /* нежно-розовый фон */
+    background: #ffb6c1; /* розовый фон */
     color: #333;
     overflow-x: hidden;
     position: relative;
@@ -87,7 +87,7 @@ section p {
 }
 
 @keyframes fall {
-    0% { transform: translateY(0); }
+    0% { transform: translateY(-10px); }
     100% { transform: translateY(100vh); }
 }
 
@@ -95,40 +95,43 @@ section p {
 .footer {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 250px;
     background: linear-gradient(to top, #ffb6c1 0%, #ffb6c1 70%, #fff0 100%);
     overflow: hidden;
 }
 
+/* Елки SVG */
 .tree {
     position: absolute;
     bottom: 0;
-    width: 50px;
-    height: 100px;
-    background: green;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 60px;
+    height: 120px;
 }
 
-.tree:nth-child(1) { left: 20px; height: 120px; }
-.tree:nth-child(2) { left: 100px; height: 100px; }
-.tree:nth-child(3) { left: 180px; height: 130px; }
-.tree:nth-child(4) { left: 260px; height: 110px; }
-.tree:nth-child(5) { left: 340px; height: 120px; }
+.tree svg {
+    width: 100%;
+    height: 100%;
+}
 
-/* Санта и олень (простая анимация) */
+@keyframes twinkle {
+    0%, 100% { fill: #fff; }
+    50% { fill: #ff0; }
+}
+
+/* Санта-Клаус */
 .santa {
     position: absolute;
-    bottom: 120px;
-    left: -200px;
-    width: 200px;
-    height: 100px;
+    bottom: 150px;
+    left: -250px;
+    width: 250px;
+    height: 120px;
     background: url('https://i.imgur.com/4J6hQjG.png') no-repeat;
     background-size: contain;
-    animation: santaMove 15s linear infinite;
+    animation: santaMove 20s linear infinite;
 }
 
 @keyframes santaMove {
-    0% { left: -200px; }
+    0% { left: -250px; }
     100% { left: 100%; }
 }
 </style>
@@ -145,7 +148,7 @@ section p {
     <p>Твоя задача завоевать как можно больше зрительских симпатий!! Они смогут проголосовать за тебя, отдав свои баллы канала в твою новогоднюю коробочку ;) Собери интересный новогодний лук своему сурву, кидайся снежками, манси 5 генов, развесели зрителя своей игрой, при этом ты должен выиграть и спасти как можно больше товарищей.</p>
     <p>После игры за сурвов стороны меняются и ты обязательно будешь киллером, здесь твоя задача быть оригинальным (пробуй разные билды, манов, тактики) и сделать -3. По окончанию матчей мы подсчитаем количество заработанных симпатий (баллов канала) и отправим символический подарочек победителю почтой (вы должны проживать в РФ), если вы живете в другом месте, подарок будет цифровой :р.</p>
     <p>ЗА СЕБЯ голосовать нельзя (очевидно). Также наши катки будет комментировать секретный гость, который совсем ничего не понимает в игре и играл один раз в жизни, он также будет оценивать нашу игру и выставлять предварительный рейтинг самых крутых игроков (конечный выбор фаворита остается также за зрителем). Если количество симпатий у нескольких игроков совпадает, мы попросим каждого претендента рассказать нам новогодний стих/спеть новогоднюю песню в ДС канале!</p>
-    <p>Это еще не все, пока остальные веселят тебя в игре, ты можешь также поучаствовать в активности "лучший чаттерс" — делай забавные клипы, оригинально шути и комментируй происходящее, заливай свои баллы канала и активно проявляй себя. В конце стрима я и модератор определим победителя и отправим ему маленький подарок! (если вы также играете с нами в кастомке, есть возможность залутать несколько наград)</p>
+    <p>Это еще не все, пока остальные веселят тебя в игре, ты можешь также поучаствовать в активности "лучший чаттерс" — делай забавные клипы, оригинально шути и комментируй происходящее, заливай свои баллы канала и активно проявляй себя. В конце стрима я и модератор определят победителя и отправим ему маленький подарок! (если вы также играете с нами в кастомке, есть возможность залутать несколько наград)</p>
 </section>
 
 <section style="text-align:center;">
@@ -156,11 +159,42 @@ section p {
 </section>
 
 <div class="footer">
-    <div class="tree"></div>
-    <div class="tree"></div>
-    <div class="tree"></div>
-    <div class="tree"></div>
-    <div class="tree"></div>
+    <!-- Елки с мерцающими огоньками -->
+    <div class="tree" style="left:30px;">
+        <svg viewBox="0 0 64 128">
+            <polygon points="32,0 0,64 64,64" fill="green"/>
+            <circle cx="16" cy="40" r="3" style="animation: twinkle 2s infinite;"></circle>
+            <circle cx="48" cy="50" r="3" style="animation: twinkle 3s infinite;"></circle>
+            <circle cx="32" cy="30" r="3" style="animation: twinkle 1.5s infinite;"></circle>
+        </svg>
+    </div>
+    <div class="tree" style="left:120px;">
+        <svg viewBox="0 0 64 128">
+            <polygon points="32,0 0,64 64,64" fill="green"/>
+            <circle cx="20" cy="35" r="3" style="animation: twinkle 2.5s infinite;"></circle>
+            <circle cx="44" cy="45" r="3" style="animation: twinkle 1.8s infinite;"></circle>
+        </svg>
+    </div>
+    <div class="tree" style="left:220px;">
+        <svg viewBox="0 0 64 128">
+            <polygon points="32,0 0,64 64,64" fill="green"/>
+            <circle cx="16" cy="40" r="3" style="animation: twinkle 1.6s infinite;"></circle>
+            <circle cx="48" cy="50" r="3" style="animation: twinkle 2.2s infinite;"></circle>
+        </svg>
+    </div>
+    <div class="tree" style="left:320px;">
+        <svg viewBox="0 0 64 128">
+            <polygon points="32,0 0,64 64,64" fill="green"/>
+            <circle cx="24" cy="38" r="3" style="animation: twinkle 2s infinite;"></circle>
+        </svg>
+    </div>
+    <div class="tree" style="left:420px;">
+        <svg viewBox="0 0 64 128">
+            <polygon points="32,0 0,64 64,64" fill="green"/>
+            <circle cx="32" cy="30" r="3" style="animation: twinkle 1.7s infinite;"></circle>
+        </svg>
+    </div>
+    <!-- Санта -->
     <div class="santa"></div>
 </div>
 
