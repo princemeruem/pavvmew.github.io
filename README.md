@@ -1,157 +1,268 @@
 
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Кастомная игра с pavvmew</title>
-  <style>
-    :root {
-      --bg: linear-gradient(180deg, #ffffff, #ffe4e1);
-      --card: rgba(255, 255, 255, 0.9);
-      --text: #111;
-      --muted: #555;
-      --accent: #ff69b4;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-    header {
-      padding: 80px 20px;
-      text-align: center;
-      background: radial-gradient(ellipse at top, #ffffff, transparent 70%);
-    }
-    header h1 {
-      font-size: 3rem;
-      margin: 0 0 10px;
-    }
-    header p {
-      color: var(--muted);
-      font-size: 1.2rem;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-      display: grid;
-      gap: 32px;
-    }
-    .card {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
-    .card h2 {
-      margin-top: 0;
-      margin-bottom: 16px;
-      font-size: 1.6rem;
-    }
-    ul {
-      padding-left: 20px;
-      margin: 0;
-    }
-    li {
-      margin-bottom: 8px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .prize {
-      background: #fff0f5;
-      border-radius: 16px;
-      padding: 20px;
-      border: 1px solid #ffc0cb;
-    }
-    .prize strong {
-      color: var(--accent);
-      font-size: 1.2rem;
-    }
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 14px 28px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-radius: 999px;
-      text-decoration: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кастомная игра с pavvmew | Dead By Daylight</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #ffe6f0);
+    color: #333;
+    overflow-x: hidden;
+    position: relative;
+}
+
+header {
+    text-align: center;
+    padding: 50px 20px;
+    background: rgba(255,255,255,0.6);
+    position: relative;
+    z-index: 2;
+}
+
+header h1 {
+    font-size: 3em;
+    margin: 0 0 10px 0;
+    color: #ff69b4;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.timer {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0;
+    color: #ff69b4;
+}
+
+section {
+    max-width: 800px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+section h2 {
+    color: #ff69b4;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+section p {
+    line-height: 1.6;
+}
+
+.prizes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.prizes li {
+    margin-bottom: 10px;
+    font-weight: bold;
+    animation: blink 1.5s infinite alternate;
+}
+
+@keyframes blink {
+    0% { color: #ff69b4; }
+    100% { color: #ff1493; }
+}
+
+/* Голосование — новогодняя коробочка */
+.box-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.box {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(to bottom right, #ffb6c1, #ffe6f0);
+    border-radius: 20px;
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.box:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.box h3 {
+    margin: 10px 0;
+    color: #fff;
+}
+
+.box-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 15px;
+    background: #ff69b4;
+    border-radius: 0 0 20px 20px;
+    width: 0%;
+    transition: width 0.5s;
+}
+
+/* Соцсети */
+.socials a {
+    display: inline-block;
+    margin-right: 15px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff69b4;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+.socials a:hover {
+    background-color: #ff4d94;
+}
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Снег */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    color: #fff;
+    font-size: 1em;
+    user-select: none;
+    z-index: 9999;
+    pointer-events: none;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+}
+</style>
 </head>
 <body>
 
 <header>
-  <h1>Кастомная игра с pavvmew</h1>
-  <p>Dead By Daylight • 25.12.2025 • Формат 4v1</p>
-  <a href="#rules" class="btn">Смотреть правила</a>
+    <h1>Кастомная игра с pavvmew</h1>
+    <p>Dead By Daylight | 25.12.2025 | Формат 4v1</p>
+    <div class="timer" id="countdown"></div>
 </header>
 
-<main class="container">
-
-  <section class="card">
-    <h2>Общая информация</h2>
-    <p>
-      Кастомная игра с pavvmew — уникальный онлайн-турнир по Dead By Daylight.
-      Завоевывайте зрительские симпатии и получайте свои новогодние подарочки от pavvmew!
-    </p>
-  </section>
-
-  <section class="card" id="rules">
-    <h2>Правила</h2>
-    <p>
-      Твоя задача завоевать как можно больше зрительских симпатий!! Они смогут проголосовать за тебя, отдав свои баллы канала в твою новогоднюю коробочку ;)
-      Собери интересный новогодний лук своему сурву, кидайся снежками, манси 5 генов, развесели зрителя своей игрой, при этом ты должен выиграть и спасти как можно больше товарищей.
-      После игры за сурвов стороны меняются и ты обязательно будешь киллером, здесь твоя задача быть оригинальным (пробуй разные билды, манов, тактики) и сделать -3.
-      По окончанию матчей мы подсчитаем количество заработанных симпатий (баллов канала) и отправим символический подарочек победителю почтой (вы должны проживать в РФ), если вы живете в другом месте, подарок будет цифровой :р.
-      ЗА СЕБЯ голосовать нельзя (очевидно).
-      Также наши катки будет комментировать секретный гость, который совсем ничего не понимает в игре и играл один раз в жизни, он также будет оценивать нашу игру и выставлять предварительный рейтинг самых крутых игроков (конечный выбор фаворита остается также за зрителем).
-      Если количество симпатий у нескольких игроков совпадает, мы попросим каждого претендента рассказать нам новогодний стих/спеть новогоднюю песню в дискорд канале!
-      Пока остальные веселят тебя в игре, ты можешь также поучаствовать в активности "лучший чаттерс" - делай забавные клипы, оригинально шути и комментируй происходящее, заливай свои баллы канала и активно проявляй себя. В конце стрима я и модератор определим победителя и отправим ему маленький подарок!
-    </p>
-  </section>
-
-  <section class="card">
-    <h2>Расписание</h2>
+<section class="prizes">
+    <h2>Призы</h2>
     <ul>
-      <li>Дата проведения: 25 декабря 2025</li>
+        <li>Милые брелочки</li>
+        <li>Ручная открытка от pavvmew</li>
     </ul>
-  </section>
+</section>
 
-  <section class="card">
-    <h2>Награды</h2>
-    <div class="grid">
-      <div class="prize">
-        <strong>Главный приз</strong>
-        <p>Милые брелочки и ручная открытка от pavvmew</p>
-      </div>
+<section class="rules">
+    <h2>Правила турнира</h2>
+    <p>Завоюй зрительские симпатии! Собери новогодний лук, кидайся снежками, используй 5 генов, развесели зрителя и спаси как можно больше товарищей. После игры стороны меняются, и ты будешь киллером — прояви оригинальность!</p>
+    <p>За себя голосовать нельзя. Секретный гость оценит игру и составит рейтинг. В случае равенства симпатий — спой или расскажи стих в Дискорде!</p>
+    <p>Участвуй в "Лучший чаттерс": делай клипы, шутки и комментарии, чтобы заработать баллы.</p>
+</section>
+
+<section>
+    <h2>Голосование зрителей</h2>
+    <div class="box-container">
+        <div class="box" onclick="vote('Игрок 1')">
+            <h3>Игрок 1</h3>
+            <div class="box-bar" id="Игрок1Bar"></div>
+        </div>
+        <div class="box" onclick="vote('Игрок 2')">
+            <h3>Игрок 2</h3>
+            <div class="box-bar" id="Игрок2Bar"></div>
+        </div>
+        <div class="box" onclick="vote('Игрок 3')">
+            <h3>Игрок 3</h3>
+            <div class="box-bar" id="Игрок3Bar"></div>
+        </div>
     </div>
-  </section>
+</section>
 
-</main>
+<section class="socials">
+    <h2>Соцсети</h2>
+    <a href="https://t.me/pavvmew" target="_blank">Telegram</a>
+    <a href="https://www.tiktok.com/@pavvmi?_t=ZS-8zD1VOxHDUn&_r=1" target="_blank">TikTok</a>
+    <a href="https://steamcommunity.com/id/pavvmi/" target="_blank">Steam</a>
+</section>
 
 <footer>
-  <p>Контакты организатора:</p>
-  <a href="https://t.me/pavvmew" target="_blank">Telegram</a>
-  <a href="https://www.tiktok.com/@pavvmi?_t=ZS-8zD1VOxHDUn&_r=1" target="_blank">TikTok</a>
-  <a href="https://steamcommunity.com/id/pavvmi/" target="_blank">Steam</a>
+    © 2025 pavvmew | Все права защищены
 </footer>
+
+<script>
+// Таймер
+const countdown = document.getElementById('countdown');
+const eventDate = new Date('2025-12-25T00:00:00');
+function updateTimer() {
+    const now = new Date();
+    const diff = eventDate - now;
+    if (diff <= 0) {
+        countdown.textContent = "Турнир уже начался!";
+        return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    countdown.textContent = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+}
+setInterval(updateTimer, 1000);
+updateTimer();
+
+// Голосование
+const votes = { 'Игрок 1': 0, 'Игрок 2': 0, 'Игрок 3': 0 };
+function vote(player) {
+    votes[player]++;
+    const total = votes['Игрок 1'] + votes['Игрок 2'] + votes['Игрок 3'];
+    document.getElementById('Игрок1Bar').style.width = (votes['Игрок 1']/total*100) + '%';
+    document.getElementById('Игрок2Bar').style.width = (votes['Игрок 2']/total*100) + '%';
+    document.getElementById('Игрок3Bar').style.width = (votes['Игрок 3']/total*100) + '%';
+}
+
+// Снег
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.textContent = '❄';
+    snowflake.style.left = Math.random() * window.innerWidth + 'px';
+    snowflake.style.fontSize = (Math.random()*20 + 10) + 'px';
+    snowflake.style.animationDuration = (Math.random()*5 + 5) + 's';
+    document.body.appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), 10000);
+}
+setInterval(createSnowflake, 200);
+</script>
 
 </body>
 </html>
