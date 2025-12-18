@@ -1,4 +1,4 @@
-# pavvmew.github.io[шаблон_сайта_турнира.html](https://github.com/user-attachments/files/24247084/_._.html)
+# pavvmew.github.io
 <!DOCTYPE html>
 <html lang="ru">
 <head>
