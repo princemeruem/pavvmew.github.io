@@ -25,12 +25,20 @@ header h1 {
     margin: 0 0 10px;
     color: #fff;
     text-shadow: 2px 2px #ff69b4;
+    animation: glow 2s infinite alternate;
 }
 
 header p {
     font-size: 1.2em;
     color: #fff;
     text-shadow: 1px 1px #ff69b4;
+}
+
+/* Мерцание заголовков */
+@keyframes glow {
+    0% { text-shadow: 2px 2px #ff69b4; color: #fff; }
+    50% { text-shadow: 4px 4px #ff1493; color: #fff; }
+    100% { text-shadow: 2px 2px #ff69b4; color: #fff; }
 }
 
 section {
@@ -40,6 +48,14 @@ section {
     padding: 25px 30px;
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 section h2 {
@@ -47,6 +63,7 @@ section h2 {
     margin-bottom: 15px;
     font-size: 2em;
     text-align: center;
+    animation: glow 2s infinite alternate;
 }
 
 section p {
@@ -64,11 +81,11 @@ section p {
     border-radius: 12px;
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.5s ease, box-shadow 0.3s ease;
 }
 
 .button:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px) rotate(-2deg) scale(1.05);
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
 
@@ -89,50 +106,6 @@ section p {
 @keyframes fall {
     0% { transform: translateY(-10px); }
     100% { transform: translateY(100vh); }
-}
-
-/* Футер с елками и Санта-Клаусом */
-.footer {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    background: linear-gradient(to top, #ffb6c1 0%, #ffb6c1 70%, #fff0 100%);
-    overflow: hidden;
-}
-
-/* Елки SVG */
-.tree {
-    position: absolute;
-    bottom: 0;
-    width: 60px;
-    height: 120px;
-}
-
-.tree svg {
-    width: 100%;
-    height: 100%;
-}
-
-@keyframes twinkle {
-    0%, 100% { fill: #fff; }
-    50% { fill: #ff0; }
-}
-
-/* Санта-Клаус */
-.santa {
-    position: absolute;
-    bottom: 150px;
-    left: -250px;
-    width: 250px;
-    height: 120px;
-    background: url('https://i.imgur.com/4J6hQjG.png') no-repeat;
-    background-size: contain;
-    animation: santaMove 20s linear infinite;
-}
-
-@keyframes santaMove {
-    0% { left: -250px; }
-    100% { left: 100%; }
 }
 </style>
 </head>
@@ -158,46 +131,6 @@ section p {
     <a class="button" href="https://steamcommunity.com/id/pavvmi/" target="_blank">Steam</a>
 </section>
 
-<div class="footer">
-    <!-- Елки с мерцающими огоньками -->
-    <div class="tree" style="left:30px;">
-        <svg viewBox="0 0 64 128">
-            <polygon points="32,0 0,64 64,64" fill="green"/>
-            <circle cx="16" cy="40" r="3" style="animation: twinkle 2s infinite;"></circle>
-            <circle cx="48" cy="50" r="3" style="animation: twinkle 3s infinite;"></circle>
-            <circle cx="32" cy="30" r="3" style="animation: twinkle 1.5s infinite;"></circle>
-        </svg>
-    </div>
-    <div class="tree" style="left:120px;">
-        <svg viewBox="0 0 64 128">
-            <polygon points="32,0 0,64 64,64" fill="green"/>
-            <circle cx="20" cy="35" r="3" style="animation: twinkle 2.5s infinite;"></circle>
-            <circle cx="44" cy="45" r="3" style="animation: twinkle 1.8s infinite;"></circle>
-        </svg>
-    </div>
-    <div class="tree" style="left:220px;">
-        <svg viewBox="0 0 64 128">
-            <polygon points="32,0 0,64 64,64" fill="green"/>
-            <circle cx="16" cy="40" r="3" style="animation: twinkle 1.6s infinite;"></circle>
-            <circle cx="48" cy="50" r="3" style="animation: twinkle 2.2s infinite;"></circle>
-        </svg>
-    </div>
-    <div class="tree" style="left:320px;">
-        <svg viewBox="0 0 64 128">
-            <polygon points="32,0 0,64 64,64" fill="green"/>
-            <circle cx="24" cy="38" r="3" style="animation: twinkle 2s infinite;"></circle>
-        </svg>
-    </div>
-    <div class="tree" style="left:420px;">
-        <svg viewBox="0 0 64 128">
-            <polygon points="32,0 0,64 64,64" fill="green"/>
-            <circle cx="32" cy="30" r="3" style="animation: twinkle 1.7s infinite;"></circle>
-        </svg>
-    </div>
-    <!-- Санта -->
-    <div class="santa"></div>
-</div>
-
 <script>
 // Снег
 function createSnowflake() {
@@ -211,6 +144,20 @@ function createSnowflake() {
     setTimeout(() => snowflake.remove(), 10000);
 }
 setInterval(createSnowflake, 200);
+
+// Анимация секций при прокрутке
+const sections = document.querySelectorAll('section');
+function checkSections() {
+    const triggerBottom = window.innerHeight * 0.85;
+    sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if(sectionTop < triggerBottom){
+            section.classList.add('visible');
+        }
+    });
+}
+window.addEventListener('scroll', checkSections);
+window.addEventListener('load', checkSections);
 </script>
 
 </body>
