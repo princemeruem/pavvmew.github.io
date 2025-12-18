@@ -20,25 +20,8 @@ header {
     padding: 50px 20px;
 }
 
-header h1 {
-    font-size: 3em;
-    margin: 0 0 10px;
-    color: #fff;
-    text-shadow: 2px 2px #ff69b4;
-    animation: glow 2s infinite alternate;
-}
-
-header p {
-    font-size: 1.2em;
-    color: #fff;
-    text-shadow: 1px 1px #ff69b4;
-}
-
-/* Мерцание заголовков */
-@keyframes glow {
-    0% { text-shadow: 2px 2px #ff69b4; color: #fff; }
-    50% { text-shadow: 4px 4px #ff1493; color: #fff; }
-    100% { text-shadow: 2px 2px #ff69b4; color: #fff; }
+header h1, header p {
+    position: relative;
 }
 
 section {
@@ -48,29 +31,39 @@ section {
     padding: 25px 30px;
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease, transform 1s ease;
+    position: relative;
 }
 
-section.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* Снеговые сугробы сверху заголовков и секций */
+header h1::before,
+header p::before,
+section h2::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: url('data:image/svg+xml;utf8,<svg width="100%" height="20" xmlns="http://www.w3.org/2000/svg"><ellipse cx="10" cy="10" rx="10" ry="5" fill="white"/><ellipse cx="30" cy="10" rx="12" ry="6" fill="white"/><ellipse cx="60" cy="10" rx="8" ry="4" fill="white"/><ellipse cx="90" cy="10" rx="15" ry="7" fill="white"/></svg>') repeat-x;
+    background-size: auto 20px;
 }
 
+/* Заголовки */
 section h2 {
     color: #ff1493;
     margin-bottom: 15px;
     font-size: 2em;
     text-align: center;
-    animation: glow 2s infinite alternate;
+    padding-top: 10px;
 }
 
+/* Параграфы */
 section p {
     line-height: 1.6;
     font-size: 1.1em;
 }
 
+/* Кнопки */
 .button {
     display: inline-block;
     padding: 12px 20px;
@@ -81,11 +74,11 @@ section p {
     border-radius: 12px;
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: transform 0.5s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .button:hover {
-    transform: translateY(-5px) rotate(-2deg) scale(1.05);
+    transform: translateY(-5px) scale(1.05);
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
 
@@ -120,7 +113,7 @@ section p {
     <h2>Правила</h2>
     <p>Твоя задача завоевать как можно больше зрительских симпатий!! Они смогут проголосовать за тебя, отдав свои баллы канала в твою новогоднюю коробочку ;) Собери интересный новогодний лук своему сурву, кидайся снежками, манси 5 генов, развесели зрителя своей игрой, при этом ты должен выиграть и спасти как можно больше товарищей.</p>
     <p>После игры за сурвов стороны меняются и ты обязательно будешь киллером, здесь твоя задача быть оригинальным (пробуй разные билды, манов, тактики) и сделать -3. По окончанию матчей мы подсчитаем количество заработанных симпатий (баллов канала) и отправим символический подарочек победителю почтой (вы должны проживать в РФ), если вы живете в другом месте, подарок будет цифровой :р.</p>
-    <p>ЗА СЕБЯ голосовать нельзя (очевидно). Также наши катки будет комментировать секретный гость, который совсем ничего не понимает в игре и играл один раз в жизни, он также будет оценивать нашу игру и выставлять предварительный рейтинг самых крутых игроков (конечный выбор фаворита остается также за зрителем). Если количество симпатий у нескольких игроков совпадает, мы попросим каждого претендента рассказать нам новогодний стих/спеть новогоднюю песню в ДС канале!</p>
+    <p>ЗА СЕБЯ голосовать нельзя (очевидно). Также наши катки будет комментировать секретный гость, который совсем ничего не понимает в игре и играл один раз в жизни, он также будет оценивать нашу игру и выставить предварительный рейтинг самых крутых игроков (конечный выбор фаворита остается также за зрителем). Если количество симпатий у нескольких игроков совпадает, мы попросим каждого претендента рассказать нам новогодний стих/спеть новогоднюю песню в ДС канале!</p>
     <p>Это еще не все, пока остальные веселят тебя в игре, ты можешь также поучаствовать в активности "лучший чаттерс" — делай забавные клипы, оригинально шути и комментируй происходящее, заливай свои баллы канала и активно проявляй себя. В конце стрима я и модератор определят победителя и отправим ему маленький подарок! (если вы также играете с нами в кастомке, есть возможность залутать несколько наград)</p>
 </section>
 
@@ -144,20 +137,6 @@ function createSnowflake() {
     setTimeout(() => snowflake.remove(), 10000);
 }
 setInterval(createSnowflake, 200);
-
-// Анимация секций при прокрутке
-const sections = document.querySelectorAll('section');
-function checkSections() {
-    const triggerBottom = window.innerHeight * 0.85;
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if(sectionTop < triggerBottom){
-            section.classList.add('visible');
-        }
-    });
-}
-window.addEventListener('scroll', checkSections);
-window.addEventListener('load', checkSections);
 </script>
 
 </body>
