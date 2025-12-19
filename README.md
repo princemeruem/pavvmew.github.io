@@ -9,7 +9,8 @@
 body {
     margin: 0;
     font-family: 'Indie Flower', cursive;
-    background: #ffb6c1; /* розовый фон */
+    background: url('/mnt/data/f5d9be31-8e75-4e31-9159-b99320b30393.png') no-repeat center center fixed;
+    background-size: cover;
     color: #333;
     overflow-x: hidden;
     position: relative;
@@ -36,7 +37,7 @@ header p {
 section {
     max-width: 800px;
     margin: 30px auto;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.85);
     padding: 25px 30px;
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
@@ -97,7 +98,7 @@ section p {
 
 /* Особенности, подарки, награды */
 .features, .gifts, .rewards {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.9);
     padding: 20px 25px;
     border-radius: 20px;
     margin: 30px auto;
